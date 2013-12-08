@@ -33,15 +33,6 @@ WPA_SUPPL_DIR_INCLUDE = $(WPA_SUPPL_DIR)/src \
 	$(WPA_SUPPL_DIR)/src/wps \
 	$(WPA_SUPPL_DIR)/wpa_supplicant
 
-ifdef CONFIG_DRIVER_NL80211
-WPA_SUPPL_DIR_INCLUDE += external/libnl-headers
-WPA_SRC_FILE += driver_cmd_nl80211.c
-endif
-
-ifdef CONFIG_DRIVER_WEXT
-WPA_SRC_FILE += driver_cmd_wext.c
-endif
-
 # To force sizeof(enum) = 4
 L_CFLAGS += -mabi=aapcs-linux
 
@@ -55,7 +46,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := lib_driver_cmd_wext
 LOCAL_SHARED_LIBRARIES := libc libcutils
 LOCAL_CFLAGS := $(L_CFLAGS)
-LOCAL_SRC_FILES := $(WPA_SRC_FILE)
+LOCAL_SRC_FILES := driver_cmd_wext.c
 LOCAL_C_INCLUDES := $(WPA_SUPPL_DIR_INCLUDE)
 include $(BUILD_STATIC_LIBRARY)
 
